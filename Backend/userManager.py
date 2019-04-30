@@ -1,4 +1,0 @@
-import sqlalchemy
-
-class UserManager:
-    

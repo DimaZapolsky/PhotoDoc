@@ -51,13 +51,6 @@
                 this.cnt = 0;
                 localStorage.cnt = 0;
             }
-            axios.get('http://photoclo.ru/api/tokens/status/',{ headers: {Authorization: "Token " + String(localStorage.token)}}).then(function (response) {
-                if (!response.data.sync) {
-                    this_.isDiskSynchronized = false;
-                } else {
-                    this_.isDiskSynchronized = true;
-                }
-            });
             if (localStorage.hasOwnProperty('token')) {
                 this.token = localStorage.token;
                 this.authenticated = true;
@@ -78,7 +71,7 @@
             },
             logout() {
                 var this_ = this;
-                axios.post('http://photoclo.ru/api/sign_out/', {Authorization: "Token " + String(localStorage.token)}).then(function () {
+                axios.post('http://0.0.0.0:81/api/sign_out/', {Authorization: "Token " + String(localStorage.token)}).then(function () {
                     this_.authenticated = false;
                     this_.$router.replace({ name: "login" });
                     delete localStorage.token;
