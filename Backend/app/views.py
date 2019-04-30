@@ -23,7 +23,7 @@ def signup():
         email = request.json['email']
 
         if not (username and password and email):
-            return 301
+            return jsonify({}), 301
         else:
             username = username.strip()
             password = password.strip()
@@ -34,17 +34,15 @@ def signup():
         new_user = User(username=username, pass_hash=hashed_pwd, email=email)
         db.session.add(new_user)
 
-        db.session.commit()
-
         try:
             db.session.commit()
         except Exception as e:
-            return jsonify({}), 200
+            return jsonify({}), 301
 
         print('sign_up OK')
         return jsonify({'token': username})
 
-    return 301
+    return jsonify({}), 301
 
 
 @app.route('/api/sign_in/', methods=['POST'])
@@ -57,7 +55,7 @@ def signin():
         password = request.json['password']
 
         if not (username and password):
-            return 301
+            return jsonify({}), 301
         else:
             username = username.strip()
             password = password.strip()
@@ -71,8 +69,8 @@ def signin():
             session[username] = True
             return jsonify({'token': username})
         else:
-            return 301
-    return 301
+            return jsonify({}), 301
+    return jsonify({}), 301
 
 
 @app.route('/api/sign_out', methods=['POST'])
@@ -81,7 +79,7 @@ def signout():
     Implements signout functionality.
     """
 
-    return 200
+    return jsonify({}), 200
 
 
 @app.route('/', defaults={'path': ''})
