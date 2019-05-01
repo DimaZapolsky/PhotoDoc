@@ -6,6 +6,8 @@ import json
 import requests
 from .models import *
 from werkzeug.security import generate_password_hash, check_password_hash
+import sys
+import os
 
 
 @app.route('/api/sign_up/', methods=['GET', 'POST'])
@@ -33,6 +35,7 @@ def signup():
 
         new_user = User(username=username, pass_hash=hashed_pwd, email=email)
         db.session.add(new_user)
+        db.session.commit()
 
         try:
             db.session.commit()
@@ -66,23 +69,21 @@ def signin():
         user = User.query.filter_by(username=username).first()
 
         if user and check_password_hash(user.pass_hash, password):
-            session[username] = True
             return jsonify({'token': username})
         else:
             return jsonify({}), 301
     return jsonify({}), 301
 
 
-@app.route('/api/sign_out', methods=['POST'])
+@app.route('/api/sign_out/', methods=['POST'])
 def signout():
     """
     Implements signout functionality.
     """
-
     return jsonify({}), 200
 
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    return render_template("index.html")
+    return render_template(os.getcwd() + app.static_folder + "index.html")
