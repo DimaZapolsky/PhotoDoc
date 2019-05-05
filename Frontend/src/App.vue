@@ -18,11 +18,10 @@
      
             </b-navbar>
    
-        <div v-if="authenticated" class="greeting">
+        <!-- <div v-if="authenticated" class="greeting">
             <div style="margin-top: 70px !important"><img src="https://i.ibb.co/mcD9xj1/2.png" class="greetingImg"></div>
             <span style="margin-top: 30px; font-size: 32px !important;" class="greetingText">ЗДЕСЬ БУДЕТ САЙТ</span>
-            </span>
-        </div>
+        </div> -->
         <router-view @authenticated="setAuthenticated" ref="child"/>
 
     </div>
@@ -63,18 +62,17 @@
             }
         },
         methods: {
-            updateToken () {
-                document.getElementsByClassName('myUploadBox')[0].__vue__.$props.my_header = {Authorization: "Token " + localStorage.token};
-            },
             setAuthenticated(status) {
                 this.authenticated = status;
             },
             logout() {
                 var this_ = this;
-                axios.post('http://0.0.0.0:81/api/sign_out/', {Authorization: "Token " + String(localStorage.token)}).then(function () {
+                axios({ method: 'POST', url: 'http://0.0.0.0:81/api/sign_out/', headers: { Authorization: "Token " + localStorage.token}, data: {}}).then(function () {
                     this_.authenticated = false;
                     this_.$router.replace({ name: "login" });
                     delete localStorage.token;
+                }).catch(function (error) {
+                    console.log(error);
                 });
             },
         },

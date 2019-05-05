@@ -1,3 +1,5 @@
+Pillow
+PyJWT
 alembic==1.0.8
 certifi==2019.3.9
 chardet==3.0.4
@@ -23,3 +25,4 @@ sqlparse==0.3.0
 Tempita==0.5.2
 urllib3==1.24.1
 Werkzeug==0.15.2
+
