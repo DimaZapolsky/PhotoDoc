@@ -65,13 +65,6 @@ def login_required(f):
 
 @app.route('/api/sign_up/', methods=['GET', 'POST'])
 def signup():
-    """
-    Implements signup functionality. Allows username, email and password for new user.
-    Hashes password with salt using werkzeug.security.
-    Stores username and hashed password inside database.
-    Username should to be unique else raises sqlalchemy.exc.IntegrityError.
-    """
-
     if request.method == 'POST':
         username = request.json['username']
         password = request.json['password']
@@ -105,9 +98,6 @@ def signup():
 
 @app.route('/api/sign_in/', methods=['POST'])
 def signin():
-    """
-    Implements signin functionality.
-    """
     if request.method == 'POST':
         username = request.json['username']
         password = request.json['password']
@@ -134,9 +124,6 @@ def signin():
 @app.route('/api/sign_out/', methods=['POST'])
 @login_required
 def signout(user):
-    """
-    Implements signout functionality.
-    """
     return jsonify({}), 200
 
 
@@ -183,8 +170,6 @@ def upload_photo(user):
             return jsonify({}), 301
 
         file = request.files['images[]']
-        with open('log5.txt', 'w') as f:
-            f.write(str(dir(file.headers)))
 
         if file:
             filename = secure_filename(file.filename)
