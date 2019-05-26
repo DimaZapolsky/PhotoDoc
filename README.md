@@ -1,8 +1,8 @@
 # Запольский Дмитрий Иванович Б05-821 Review №2
 
 Чтобы запустить сервер с backend нужно:
-cd Backend
 ```
+cd Backend
 export FLASK_APP=run.py
 export FLASK_ENV=development
 flask run
