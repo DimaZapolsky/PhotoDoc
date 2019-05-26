@@ -1,8 +1,8 @@
 import os
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
-host = '0.0.0.0'
-port = 81
+host = '127.0.0.1'
+port = 5000
 debug = True
 UPLOAD_FOLDER = './photos/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}

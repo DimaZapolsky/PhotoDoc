@@ -67,7 +67,7 @@
             },
             logout() {
                 var this_ = this;
-                axios({ method: 'POST', url: 'http://0.0.0.0:81/api/sign_out/', headers: { Authorization: "Token " + localStorage.token}, data: {}}).then(function () {
+                axios({ method: 'POST', url: 'http://127.0.0.1:5000/api/sign_out/', headers: { Authorization: "Token " + localStorage.token}, data: {}}).then(function () {
                     this_.authenticated = false;
                     this_.$router.replace({ name: "login" });
                     delete localStorage.token;

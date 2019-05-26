@@ -1,1 +1,0 @@
-Error:400{"errors":[{"title":"Could not find person or product in image. For details and recommendations see https://www.remove.bg/supported-images.","code":"unknown_foreground"}]}

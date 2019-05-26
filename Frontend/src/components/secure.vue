@@ -1,7 +1,7 @@
 <template>
     <div style="display: flex; flex-direction: row; justify-content: space-around;">
     <div style="max-width: 700px; width: 100%;">
-        <myUploader v-if="stage == 1" url="http://0.0.0.0:81/api/upload_photo/" max-files="1" ref="myUploader"
+        <myUploader v-if="stage == 1" url="http://127.0.0.1:5000/api/upload_photo/" max-files="1" ref="myUploader"
                                         @upload-image-success="updateImagesOk" @fileDeleted="photoIdNow = -1" />
         
         <div v-if="stage == 2" class="box">
@@ -147,7 +147,7 @@
             },
             uploadFinalUrl() {
                 var this_ = this;
-                axios.get('http://0.0.0.0:81/api/get_final_photo/', {params: {photoId: this.photoIdNow, color: this.color, size: this.size, paper: this.paper, count: this.count, dpi: this.dpi }, headers: {Authorization: "Token " + localStorage.token } }).then(function(response) {
+                axios.get('http://127.0.0.1:5000/api/get_final_photo/', {params: {photoId: this.photoIdNow, color: this.color, size: this.size, paper: this.paper, count: this.count, dpi: this.dpi }, headers: {Authorization: "Token " + localStorage.token } }).then(function(response) {
                         this_.finalUrl = response.data.url;
                     }).catch(function (error) {
                         console.log(error);
@@ -163,7 +163,7 @@
                     data.append('caption', 'image');
                     var this_ = this;
              
-                    axios.post('http://0.0.0.0:81/api/upload_cropped_photo/', data, { headers: { 'content-type': 'multipart/form-data' , Authorization: "Token " + localStorage.token, 'photoId': this.photoIdNow} }).then(function (response) {
+                    axios.post('http://127.0.0.1:5000/api/upload_cropped_photo/', data, { headers: { 'content-type': 'multipart/form-data' , Authorization: "Token " + localStorage.token, 'photoId': this.photoIdNow} }).then(function (response) {
                         this_.uploadFinalUrl();
                     }).catch(function (error) {
                         console.log(error);
